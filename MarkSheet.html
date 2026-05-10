@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marksheet</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .marksheet{
+            width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border: 3px solid black;
+        }
+
+        h1,h2{
+            text-align: center;
+            margin: 5px;
+        }
+
+        .student-info{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .student-info input{
+            padding: 6px;
+            width: 200px;
+            margin: 5px;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td{
+            border: 1px solid black;
+        }
+
+        th, td{
+            padding: 10px;
+            text-align: center;
+        }
+
+        input[type="number"]{
+            width: 80px;
+            padding: 5px;
+        }
+
+        button{
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result{
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="marksheet">
+
+        <h1>ABC Secondary School</h1>
+        <h2>Student Marksheet</h2>
+
+        <div class="student-info">
+
+            <label>Student Name:</label>
+            <input type="text" id="name">
+
+            <label>Roll No:</label>
+            <input type="text" id="roll">
+
+        </div>
+
+        <table>
+
+            <tr>
+                <th>S.N</th>
+                <th>Subject</th>
+                <th>Full Marks</th>
+                <th>Pass Marks</th>
+                <th>Obtained Marks</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Maths</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m1"></td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Science</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m2"></td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Nepali</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m3"></td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>Social</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m4"></td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>Computer</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m5"></td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>Account</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m6"></td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>English</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m7"></td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>Physics</td>
+                <td>100</td>
+                <td>40</td>
+                <td><input type="number" id="m8"></td>
+            </tr>
+
+            <tr>
+                <th colspan="4">Total</th>
+                <th id="totalMarks">0</th>
+            </tr>
+
+        </table>
+
+        <center>
+            <button onclick="calculateResult()">Generate Result</button>
+        </center>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+
+        function calculateResult(){
+
+            let total = 0;
+
+            for(let i = 1; i <= 8; i++){
+                total += Number(document.getElementById("m" + i).value);
+            }
+
+            document.getElementById("totalMarks").innerHTML = total;
+
+            let division = "";
+            let color = "";
+
+            if(total > 700){
+                division = "Distinction";
+                color = "green";
+            }
+            else if(total > 600){
+                division = "First Division";
+                color = "blue";
+            }
+            else if(total >= 500){
+                division = "Second Division";
+                color = "orange";
+            }
+            else if(total >= 400){
+                division = "Third Division";
+                color = "purple";
+            }
+            else{
+                division = "Fail";
+                color = "red";
+            }
+
+            document.getElementById("result").innerHTML =
+                "Student: " + document.getElementById("name").value + "<br>" +
+                "Roll No: " + document.getElementById("roll").value + "<br><br>" +
+                "Total Marks: " + total + " / 800<br>" +
+                "Division: " + division;
+
+            document.getElementById("result").style.color = color;
+        }
+
+    </script>
+
+</body>
+</html>
