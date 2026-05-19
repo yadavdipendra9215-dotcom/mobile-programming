@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ATM Machine</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Font Awesome for Eye Icon -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .atm {
+            width: 320px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        .balance-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eye-btn {
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="atm">
+    <h2>ATM Machine</h2>
+
+    <div class="balance-box">
+        <h3>Balance: $<span id="balance">100000</span></h3>
+
+        <!-- Eye Icon -->
+        <i class="fa-solid fa-eye eye-btn" id="toggleBalance"></i>
+    </div>
+
+    <input type="number" id="amount" placeholder="Enter Amount">
+
+    <br>
+
+    <button id="deposit">Deposit</button>
+    <button id="withdraw">Withdraw</button>
+    <button id="check">Check Balance</button>
+
+    <div id="message"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        let balance = 1000;
+        let hidden = false;
+
+        // Deposit
+        $("#deposit").click(function () {
+            let amount = parseFloat($("#amount").val());
+
+            if (amount > 0) {
+                balance += amount;
+
+                if (!hidden) {
+                    $("#balance").text(balance);
+                }
+
+                $("#message").text("Deposit Successful!");
+            } else {
+                $("#message").text("Enter valid amount!");
+            }
+        });
+
+        // Withdraw
+        $("#withdraw").click(function () {
+            let amount = parseFloat($("#amount").val());
+
+            if (amount > balance) {
+                $("#message").text("Insufficient Balance!");
+            }
+            else if (amount > 0) {
+                balance -= amount;
+
+                if (!hidden) {
+                    $("#balance").text(balance);
+                }
+
+                $("#message").text("Withdrawal Successful!");
+            }
+            else {
+                $("#message").text("Enter valid amount!");
+            }
+        });
+
+        // Check Balance
+        $("#check").click(function () {
+            $("#message").text("Current Balance Checked");
+        });
+
+        // Hide / Show Balance
+        $("#toggleBalance").click(function () {
+
+            if (!hidden) {
+                $("#balance").text("****");
+
+                $(this)
+                    .removeClass("fa-eye")
+                    .addClass("fa-eye-slash");
+
+                hidden = true;
+            }
+            else {
+                $("#balance").text(balance);
+
+                $(this)
+                    .removeClass("fa-eye-slash")
+                    .addClass("fa-eye");
+
+                hidden = false;
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+</html>
